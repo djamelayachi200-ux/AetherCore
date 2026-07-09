@@ -14,8 +14,8 @@ type TeamMember = {
 };
 
 const ROLE_KEYWORDS = [
-  { key: "Owner", color: "#900057" },
-  { key: "Co-Owner", color: "#d8ff00" },
+  { key: "Owner", color: "#d8ff00" },
+  { key: "Co-Owner", color: "#e67e22" },
   { key: "Admin", color: "#6a0dad" },
   { key: "Tech Support", color: "#007ba1" },
   { key: "Developer", color: "#0024f3" },
