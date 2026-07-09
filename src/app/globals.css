@@ -5,6 +5,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-arabic: var(--font-tajawal);
 
   --color-dark-900: #0A0B10;
   --color-dark-800: #0E0F15;
@@ -21,6 +22,13 @@
   --color-text-primary: #EAE8E4;
   --color-text-secondary: #9A9490;
   --color-text-muted: #5A5652;
+
+  --color-light-bg: #F4F4F7;
+  --color-light-surface: #FFFFFF;
+  --color-light-border: #D4D6DD;
+  --color-light-text: #1A1B26;
+  --color-light-text-secondary: #5A5E6E;
+  --color-light-text-muted: #8A8E9E;
 
   --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
   --animate-glow-pulse: glow-pulse 3s ease-in-out infinite;
@@ -108,11 +116,28 @@
 :root {
   --background: #0A0B10;
   --foreground: #EAE8E4;
+  --surface: #0E0F15;
+  --surface-alt: #12131A;
+  --border: #282A3A;
+  --text-primary: #EAE8E4;
+  --text-secondary: #9A9490;
+  --text-muted: #5A5652;
+}
+
+[data-theme="light"] {
+  --background: #F4F4F7;
+  --foreground: #1A1B26;
+  --surface: #FFFFFF;
+  --surface-alt: #F0F1F5;
+  --border: #D4D6DD;
+  --text-primary: #1A1B26;
+  --text-secondary: #5A5E6E;
+  --text-muted: #8A8E9E;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #282A3A #0A0B10;
+  scrollbar-color: var(--border) var(--background);
 }
 
 body {
@@ -127,5 +152,9 @@ html {
 
 ::selection {
   background: rgba(184, 191, 203, 0.2);
-  color: #EAE8E4;
+  color: var(--foreground);
+}
+
+[dir="rtl"] {
+  font-family: var(--font-arabic, var(--font-sans));
 }

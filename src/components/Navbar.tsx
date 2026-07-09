@@ -1,19 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
-import { Menu, X, Gamepad2 } from "lucide-react";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/#tournaments", label: "Tournaments" },
-  { href: "/games", label: "Games" },
-  { href: "/#team", label: "Team" },
-  { href: "/#news", label: "News" },
-  { href: "/#contact", label: "Contact" },
-];
+import { Menu, X } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageProvider";
 
 export default function Navbar() {
+  const { t, lang } = useLanguage();
+
+  const navLinks = useMemo(() => [
+    { href: "/", label: t("nav.home") },
+    { href: "/#tournaments", label: t("nav.tournaments") },
+    { href: "/games", label: t("nav.games") },
+    { href: "/#team", label: t("nav.team") },
+    { href: "/#news", label: t("nav.news") },
+    { href: "/#contact", label: t("nav.contact") },
+  ], [lang]);
+
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [heroProgress, setHeroProgress] = useState(0);

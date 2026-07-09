@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Orbitron } from "next/font/google";
+import { Geist, Geist_Mono, Orbitron, Tajawal } from "next/font/google";
 import "./globals.css";
 import { SoundProvider } from "@/components/SoundProvider";
+import { ThemeProvider } from "@/contexts/ThemeProvider";
+import { LanguageProvider } from "@/contexts/LanguageProvider";
 import SoundToggle from "@/components/SoundToggle";
 import SettingsPanel from "@/components/SettingsPanel";
 
@@ -19,6 +21,12 @@ const orbitron = Orbitron({
   variable: "--font-orbitron",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
+});
+
+const tajawal = Tajawal({
+  variable: "--font-tajawal",
+  subsets: ["arabic"],
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -53,14 +61,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} antialiased`}
+      dir="ltr"
+      className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} ${tajawal.variable} antialiased`}
     >
-      <body className="min-h-screen bg-dark-900 text-text-primary overflow-x-hidden">
-        <SoundProvider>
-          {children}
-          <SoundToggle />
-          <SettingsPanel />
-        </SoundProvider>
+      <body className="min-h-screen bg-[var(--background)] text-[var(--foreground)] overflow-x-hidden">
+        <ThemeProvider>
+          <LanguageProvider>
+            <SoundProvider>
+              {children}
+              <SoundToggle />
+              <SettingsPanel />
+            </SoundProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

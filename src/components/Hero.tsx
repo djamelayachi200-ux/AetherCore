@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import type { TargetAndTransition, Transition } from "framer-motion";
 import Button from "@/components/ui/Button";
+import { useLanguage } from "@/contexts/LanguageProvider";
 
 type Phase = "idle" | "exploding" | "imploding" | "revealed";
 
@@ -24,6 +25,7 @@ const particles = Array.from({ length: 20 }, (_, i) => ({
 }));
 
 export default function Hero() {
+  const { t } = useLanguage();
   const [phase, setPhase] = useState<Phase>("idle");
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
   const [contentVisible, setContentVisible] = useState(true);
@@ -322,7 +324,7 @@ export default function Hero() {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
             <Sparkles className="w-3.5 h-3.5 animate-breathe" />
-            AETHRECORE — Next Generation Gaming
+            {t("hero.subtitle")}
           </motion.span>
         </motion.div>
 
@@ -365,9 +367,9 @@ export default function Hero() {
           transition={{ duration: 0.35, ease: "easeOut" }}
           className="text-lg sm:text-xl md:text-2xl text-text-secondary font-light tracking-wide mb-4 sm:mb-5 max-w-2xl"
         >
-          <motion.span data-sfx-hover className="text-accent-navy font-semibold inline-block" whileHover={{ scale: 1.1, y: -2 }} transition={{ type: "spring", stiffness: 300 }}>PLAY.</motion.span>{" "}
-          <motion.span data-sfx-hover className="text-accent-platinum font-semibold inline-block" whileHover={{ scale: 1.1, y: -2 }} transition={{ type: "spring", stiffness: 300 }}>COMPETE.</motion.span>{" "}
-          <motion.span data-sfx-hover className="text-accent-mauve font-semibold inline-block" whileHover={{ scale: 1.1, y: -2 }} transition={{ type: "spring", stiffness: 300 }}>CONNECT.</motion.span>
+          <motion.span data-sfx-hover className="text-accent-navy font-semibold inline-block" whileHover={{ scale: 1.1, y: -2 }} transition={{ type: "spring", stiffness: 300 }}>{t("hero.slogan1")}</motion.span>{" "}
+          <motion.span data-sfx-hover className="text-accent-platinum font-semibold inline-block" whileHover={{ scale: 1.1, y: -2 }} transition={{ type: "spring", stiffness: 300 }}>{t("hero.slogan2")}</motion.span>{" "}
+          <motion.span data-sfx-hover className="text-accent-mauve font-semibold inline-block" whileHover={{ scale: 1.1, y: -2 }} transition={{ type: "spring", stiffness: 300 }}>{t("hero.slogan3")}</motion.span>
         </motion.p>
 
         {/* Slogan 2 */}
@@ -381,7 +383,7 @@ export default function Hero() {
           transition={{ duration: 0.35, delay: 0.08, ease: "easeOut" }}
           className="text-sm sm:text-base text-text-muted font-light tracking-[0.25em] uppercase mb-10 sm:mb-12"
         >
-          WHERE LEGENDS COLLIDE
+          {t("hero.desc")}
         </motion.p>
 
         {/* Buttons */}
@@ -396,13 +398,13 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
         >
           <Button href="https://discord.gg/5t3hUFVcS" target="_blank" rel="noopener noreferrer" variant="primary">
-            Join Discord Server
+            {t("hero.joinBtn")}
             <motion.span animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}>
               <ArrowRight className="w-5 h-5" />
             </motion.span>
           </Button>
           <Button href="#tournaments" variant="secondary">
-            Explore Tournaments
+            {t("hero.exploreBtn")}
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Button>
         </motion.div>

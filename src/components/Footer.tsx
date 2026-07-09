@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Gamepad2, Send, Mail, MapPin, Users, Wifi, ArrowRight } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { useLanguage } from "@/contexts/LanguageProvider";
 
 const socialLinks = [
   {
@@ -30,6 +31,7 @@ const inputClass =
   "w-full px-4 py-3 rounded-xl bg-dark-700/80 border border-dark-500/50 text-text-primary placeholder-text-muted outline-none transition-all duration-300 focus:border-accent-platinum/60 focus:shadow-[0_0_15px_rgba(184,191,203,0.15)] focus:bg-dark-700";
 
 export default function Footer() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -93,11 +95,11 @@ export default function Footer() {
         >
           <h2 className="font-orbitron text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-accent-platinum to-accent-navy bg-clip-text text-transparent">
-              GET CONNECTED
+              {t("footer.title")}
             </span>
           </h2>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            Join the community. Reach out. Stay in the loop.
+            {t("footer.desc")}
           </p>
         </motion.div>
 
@@ -111,7 +113,7 @@ export default function Footer() {
           >
             <h3 className="font-orbitron text-xl font-bold text-text-primary mb-6 flex items-center gap-2">
               <Mail className="w-5 h-5 text-accent-platinum" />
-              Send us a message
+              {t("footer.send")}
             </h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -119,7 +121,7 @@ export default function Footer() {
                 <motion.div whileFocus={{ scale: 1.01 }}>
                   <input
                     type="text"
-                    placeholder="Your Name"
+                    placeholder={t("footer.name")}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className={inputClass}
@@ -129,7 +131,7 @@ export default function Footer() {
                 <motion.div whileFocus={{ scale: 1.01 }}>
                   <input
                     type="email"
-                    placeholder="Your Email"
+                    placeholder={t("footer.email")}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className={inputClass}
@@ -139,7 +141,7 @@ export default function Footer() {
               </div>
               <motion.div whileFocus={{ scale: 1.005 }}>
                 <textarea
-                  placeholder="Your Message"
+                  placeholder={t("footer.message")}
                   rows={5}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -151,7 +153,7 @@ export default function Footer() {
                 type="submit"
                 variant="primary"
               >
-                Send Message
+                {t("footer.sendBtn")}
                 <motion.span
                   animate={{ x: [0, 3, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
@@ -172,7 +174,7 @@ export default function Footer() {
             <div>
               <h3 className="font-orbitron text-xl font-bold text-text-primary mb-6 flex items-center gap-2">
                 <MapPin className="w-5 h-5 text-accent-navy" />
-                Connect with us
+                {t("footer.connect")}
               </h3>
 
               <div className="space-y-4">
@@ -217,7 +219,7 @@ export default function Footer() {
             <div>
               <h3 className="font-orbitron text-xl font-bold text-text-primary mb-6 flex items-center gap-2">
                 <Wifi className="w-5 h-5 text-accent-mauve" />
-                Server Stats
+                {t("footer.stats")}
               </h3>
 
               <motion.div
@@ -243,7 +245,7 @@ export default function Footer() {
                     >
                       <Users className="w-6 h-6 text-accent-platinum" />
                     </motion.div>
-                    <p className="text-text-muted text-xs mb-1">Members</p>
+                    <p className="text-text-muted text-xs mb-1">{t("footer.members")}</p>
                     <p className="font-orbitron text-2xl font-bold bg-gradient-to-r from-accent-platinum to-accent-navy bg-clip-text text-transparent">
                       {discordStats?.memberCount ?? "—"}
                     </p>
@@ -258,7 +260,7 @@ export default function Footer() {
                     >
                       <Wifi className="w-6 h-6 text-accent-muted" />
                     </motion.div>
-                    <p className="text-text-muted text-xs mb-1">Online</p>
+                    <p className="text-text-muted text-xs mb-1">{t("footer.online")}</p>
                     <p className="font-orbitron text-2xl font-bold bg-gradient-to-r from-accent-muted to-accent-navy bg-clip-text text-transparent">
                       {discordStats?.onlineCount ?? "—"}
                     </p>
@@ -288,7 +290,7 @@ export default function Footer() {
             </span>
           </div>
           <p className="text-text-muted text-sm">
-            &copy; {new Date().getFullYear()} AETHRECORE Gaming Community. All rights reserved.
+            &copy; {new Date().getFullYear()} {t("footer.copyright")}
           </p>
         </motion.div>
       </div>

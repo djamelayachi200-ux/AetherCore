@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Shield, Users, Wifi } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageProvider";
 
 type TeamMember = {
   id: string;
@@ -48,6 +49,7 @@ const memberVariants = {
 };
 
 export default function Team() {
+  const { t } = useLanguage();
   const [team, setTeam] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -92,23 +94,23 @@ const sorted = [...team].sort((a, b) => {
         >
           <h2 className="font-orbitron text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-accent-platinum to-accent-navy bg-clip-text text-transparent">
-              THE CREW
+              {t("team.title")}
             </span>
           </h2>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            The team behind the scenes keeping the server running
+            {t("team.desc")}
           </p>
         </motion.div>
 
         {loading ? (
           <div className="text-center text-text-muted py-20">
             <div className="inline-block w-8 h-8 border-2 border-accent-platinum/40 border-t-accent-platinum rounded-full animate-spin mb-4" />
-            <p>Loading team...</p>
+            <p>{t("team.loading")}</p>
           </div>
         ) : team.length === 0 ? (
           <div className="text-center text-text-muted py-20">
             <Shield className="w-12 h-12 mx-auto mb-4 opacity-40" />
-            <p>No team data available yet. Add roles in Discord.</p>
+            <p>{t("team.noData")}</p>
           </div>
         ) : (
           <motion.div
