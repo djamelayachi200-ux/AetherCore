@@ -25,7 +25,7 @@ function updateCache(client) {
       m.presence?.status === "dnd"
   ).size;
 
-  const teamKeywords = ["Admin", "Owner", "Mod", "Developer", "Co-Owner", "Tech Support"];
+  const teamKeywords = ["Admin", "Owner", "Co-Owner", "Developer", "Tech Support", "Mod"];
   const members = guild.members.cache.map((m) => ({
     id: m.id,
     username: m.user.username,
@@ -33,7 +33,7 @@ function updateCache(client) {
     globalName: m.user.globalName,
     avatar: m.user.displayAvatarURL({ size: 128 }),
     roles: m.roles.cache.map((r) => ({ id: r.id, name: r.name, color: r.hexColor })),
-    isTeam: m.roles.cache.some((r) => teamKeywords.some((k) => r.name.includes(k))),
+    isTeam: m.roles.cache.some((r) => r.name.includes("AC 〢") && teamKeywords.some((k) => r.name.includes(k))),
     status: m.presence?.status || "offline",
     joinedAt: m.joinedAt?.toISOString(),
   }));
