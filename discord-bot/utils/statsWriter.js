@@ -3,6 +3,21 @@ const path = require("path");
 
 const CACHE_FILE = path.join(__dirname, "..", "..", ".data", "discord-cache.json");
 const REFRESH_INTERVAL = 60_000;
+const TOKEN = process.env.DISCORD_BOT_TOKEN;
+
+async function fetchOnlineFromApi(guildId) {
+  if (!TOKEN || !guildId) return null;
+  try {
+    const res = await fetch(`https://discord.com/api/v10/guilds/${guildId}?with_counts=true`, {
+      headers: { Authorization: `Bot ${TOKEN}` },
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.approximate_presence_count ?? null;
+  } catch {
+    return null;
+  }
+}
 
 async function writeStats(client) {
   try {
@@ -12,12 +27,18 @@ async function writeStats(client) {
     await guild.members.fetch();
 
     const total = guild.memberCount;
-    const online = guild.members.cache.filter(
+    const fromPresence = guild.members.cache.filter(
       (m) =>
         m.presence?.status === "online" ||
         m.presence?.status === "idle" ||
         m.presence?.status === "dnd"
     ).size;
+
+    let onlineCount = fromPresence;
+    const apiOnline = await fetchOnlineFromApi(guild.id);
+    if (apiOnline !== null && apiOnline > onlineCount) {
+      onlineCount = apiOnline;
+    }
 
     const teamKeywords = ["Admin", "Owner", "Co-Owner", "Developer", "Tech Support", "Mod"];
     const members = guild.members.cache.map((m) => ({
@@ -37,7 +58,7 @@ async function writeStats(client) {
       id: guild.id,
       description: guild.description,
       memberCount: total,
-      onlineCount: online,
+      onlineCount: onlineCount,
       members,
       updatedAt: new Date().toISOString(),
     };
