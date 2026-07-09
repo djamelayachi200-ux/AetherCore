@@ -18,7 +18,7 @@ function updateCache(client) {
   _client = client;
 
   const total = guild.memberCount;
-  const online = guild.members.cache.filter(
+  const online = guild.approximatePresenceCount ?? guild.members.cache.filter(
     (m) =>
       m.presence?.status === "online" ||
       m.presence?.status === "idle" ||
