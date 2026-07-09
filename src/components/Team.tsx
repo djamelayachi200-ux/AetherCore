@@ -14,8 +14,8 @@ type TeamMember = {
 };
 
 const ROLE_KEYWORDS = [
-  { key: "Owner", color: "#d8ff00" },
-  { key: "Co-Owner", color: "#900057" },
+  { key: "Owner", color: "#900057" },
+  { key: "Co-Owner", color: "#d8ff00" },
   { key: "Admin", color: "#6a0dad" },
   { key: "Tech Support", color: "#007ba1" },
   { key: "Developer", color: "#0024f3" },
@@ -118,7 +118,7 @@ const sorted = [...team].sort((a, b) => {
             viewport={{ once: true, margin: "-50px" }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"
           >
-            {sorted.map((member) => {
+            {sorted.slice(0, 4).map((member) => {
               const topRole = getTopRole(member.roles);
               const color = topRole.color;
               const roleName = topRole.name;
